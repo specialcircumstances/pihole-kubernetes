@@ -15,28 +15,28 @@ data:
 
     # List of pihole commands to configure / reconfigure permit and deny lists
   {{- if eq .Values.domains.alwaysNuke true }}
-    pihole -w --nuke --noreload 
-    pihole -b --nuke --noreload 
-    pihole --white-wild --nuke --noreload 
+    pihole allow --nuke --noreload 
+    pihole deny --nuke --noreload 
+    pihole --allow-wild --nuke --noreload 
     pihole --wild --nuke --noreload 
-    pihole --white-regex --nuke --noreload 
+    pihole --allow-regex --nuke --noreload 
     pihole --regex --nuke --noreload 
     pihole restartdns reload
     sleep 5
   {{- end }}
   {{- if .Values.domains.permit }}
     {{- range .Values.domains.permit }}
-    pihole -w --noreload {{ . }} --comment "Added by pihole Helm chart"
+    pihole allow --noreload {{ . }} --comment "Added by pihole Helm chart"
     {{- end }}
   {{- end }}
   {{- if .Values.domains.deny }}
     {{- range .Values.domains.deny }}
-    pihole -b --noreload {{ . }} --comment "Added by pihole Helm chart"
+    pihole deny --noreload {{ . }} --comment "Added by pihole Helm chart"
     {{- end }}
   {{- end }}
   {{- if .Values.domains.permitWildcard }}
     {{- range .Values.domains.permitWildcard }}
-    pihole --white-wild --noreload {{ . }} --comment "Added by pihole Helm chart"
+    pihole --allow-wild --noreload {{ . }} --comment "Added by pihole Helm chart"
     {{- end }}
   {{- end }}
   {{- if .Values.domains.denyWildcard }}
@@ -46,7 +46,7 @@ data:
   {{- end }}
   {{- if .Values.domains.permitRegex }}
     {{- range .Values.domains.permitRegex }}
-    pihole --white-regex --noreload '{{ . }}' --comment "Added by pihole Helm chart"
+    pihole --allow-regex --noreload '{{ . }}' --comment "Added by pihole Helm chart"
     {{- end }}
   {{- end }}
   {{- if .Values.domains.denyRegex }}
