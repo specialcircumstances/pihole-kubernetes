@@ -15,6 +15,8 @@ data:
 
     # List of pihole commands to configure / reconfigure permit and deny lists
   {{- if eq .Values.domains.alwaysNuke true }}
+    # Temp need to do this to make pihole cli work
+    sed -i 's/^readonly //' /opt/pihole/list.sh
     # pihole allow --nuke --noreload 
     # pihole deny --nuke --noreload 
     # pihole --allow-wild --nuke --noreload 
