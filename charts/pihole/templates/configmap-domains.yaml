@@ -21,7 +21,7 @@ data:
     # pihole --wild --nuke --noreload 
     # pihole --allow-regex --nuke --noreload 
     # pihole --regex --nuke --noreload 
-    pihole reload dns
+    pihole reloaddns
     sleep 5
   {{- end }}
   {{- if .Values.domains.permit }}
