@@ -15,45 +15,45 @@ data:
 
     # List of pihole commands to configure / reconfigure permit and deny lists
   {{- if eq .Values.domains.alwaysNuke true }}
-    pihole allow --nuke --noreload 
-    pihole deny --nuke --noreload 
-    pihole --allow-wild --nuke --noreload 
-    pihole --wild --nuke --noreload 
-    pihole --allow-regex --nuke --noreload 
-    pihole --regex --nuke --noreload 
-    pihole restartdns reload
+    # pihole allow --nuke --noreload 
+    # pihole deny --nuke --noreload 
+    # pihole --allow-wild --nuke --noreload 
+    # pihole --wild --nuke --noreload 
+    # pihole --allow-regex --nuke --noreload 
+    # pihole --regex --nuke --noreload 
+    pihole reload dns
     sleep 5
   {{- end }}
   {{- if .Values.domains.permit }}
     {{- range .Values.domains.permit }}
-    pihole allow --noreload {{ . }} --comment "Added by pihole Helm chart"
+    pihole allow {{ . }} --comment "Added by pihole Helm chart"
     {{- end }}
   {{- end }}
   {{- if .Values.domains.deny }}
     {{- range .Values.domains.deny }}
-    pihole deny --noreload {{ . }} --comment "Added by pihole Helm chart"
+    pihole deny {{ . }} --comment "Added by pihole Helm chart"
     {{- end }}
   {{- end }}
   {{- if .Values.domains.permitWildcard }}
     {{- range .Values.domains.permitWildcard }}
-    pihole --allow-wild --noreload {{ . }} --comment "Added by pihole Helm chart"
+    pihole --allow-wild {{ . }} --comment "Added by pihole Helm chart"
     {{- end }}
   {{- end }}
   {{- if .Values.domains.denyWildcard }}
     {{- range .Values.domains.denyWildcard }}
-    pihole --wild --noreload {{ . }} --comment "Added by pihole Helm chart"
+    pihole --wild {{ . }} --comment "Added by pihole Helm chart"
     {{- end }}
   {{- end }}
   {{- if .Values.domains.permitRegex }}
     {{- range .Values.domains.permitRegex }}
-    pihole --allow-regex --noreload '{{ . }}' --comment "Added by pihole Helm chart"
+    pihole --allow-regex '{{ . }}' --comment "Added by pihole Helm chart"
     {{- end }}
   {{- end }}
   {{- if .Values.domains.denyRegex }}
     {{- range .Values.domains.denyRegex }}
-    pihole --regex --noreload '{{ . }}' --comment "Added by pihole Helm chart"
+    pihole --regex '{{ . }}' --comment "Added by pihole Helm chart"
     {{- end }}
   {{- end }}
-    pihole restartdns reload
+    pihole reloaddns
     # End of list
 {{ end }}
